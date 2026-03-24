@@ -13,7 +13,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const siteConfig = {
   siteName: 'Recode Software Przemysław Szejna',
   siteUrl: 'https://recode-software.eu',
-  defaultImage: '/images/og-image.png'
+  defaultImage: '/images/og-image.jpg'
 };
 
 const {
@@ -52,6 +52,8 @@ const alternateURL = new URL(alternatePath, siteConfig.siteUrl);
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={imageURL.toString()} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta property="og:site_name" content={siteConfig.siteName} />
 <meta property="og:locale" content={locale === 'pl' ? 'pl_PL' : 'en_US'} />
 
