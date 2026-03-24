@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://recode-software.eu/sitemap-index.xml

@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import Experiences from '../../components/Experiences.astro';
+import { getLocaleFromUrl, t } from '../../i18n/translations';
+
+const locale = getLocaleFromUrl(Astro.url);
+
+const allProjects = await getCollection('projects');
+const projects = allProjects.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const subtitle = locale === 'pl'
+  ? 'Wybrane realizacje z mojego portfolio'
+  : 'Selected works from my portfolio';
+---
+
+<BaseLayout title={t(locale, 'projects')}>
+  <section class="projects-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">{t(locale, 'projectsTitle')}</h1>
+        <p class="page-subtitle">{subtitle}</p>
+      </div>
+
+      <div class="projects-grid">
+        {projects.map((project, index) => (
+          <div style={`--delay: ${index * 0.1}s`} class="project-item">
+            <ProjectCard project={project} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Experiences />
+</BaseLayout>
+
+<style lang="scss">
+  .projects-page {
+    padding: 8rem 1.5rem 5rem;
+    min-height: 50vh;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .page-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 1rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    margin: 0;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .project-item {
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: var(--delay);
+    opacity: 0;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

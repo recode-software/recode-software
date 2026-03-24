@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Polityka Prywatności">
+  <section class="privacy-page">
+    <div class="container">
+      <div class="content-wrapper">
+        <h1>Polityka Prywatności</h1>
+
+        <p>
+          Niniejsza Polityka Prywatności określa zasady zbierania, przetwarzania i ochrony danych osobowych
+          zbieranych od użytkowników strony internetowej "Recode Software Przemysław Szejna" w celach
+          statystycznych i analitycznych.
+        </p>
+
+        <h2>1. Administrator Danych</h2>
+        <p>Administratorem danych jest:</p>
+        <address>
+          Recode Software Przemysław Szejna<br />
+          94-052 Łódź, ul. Popiełuszki 11/20<br />
+          +48 732 049 610<br />
+          przemyslaw.szejna@recode-software.eu
+        </address>
+
+        <h2>2. Cele Przetwarzania Danych</h2>
+        <p>
+          Dane osobowe użytkowników są zbierane w celach statystycznych i analitycznych, w szczególności
+          do monitorowania ruchu na stronie, zbierania informacji o odwiedzających oraz analizy sposobu
+          korzystania z naszej strony. Do zbierania tych danych używamy narzędzia Google Analytics.
+        </p>
+
+        <h2>3. Rodzaje Zbieranych Danych</h2>
+        <p>Podczas wizyty na naszej stronie możemy zbierać następujące dane osobowe:</p>
+        <ul>
+          <li>Adresy IP</li>
+          <li>Typ przeglądarki i system operacyjny</li>
+          <li>Źródło przekierowania</li>
+          <li>Odwiedzone strony w ramach naszej witryny</li>
+          <li>Czas spędzony na naszej stronie</li>
+        </ul>
+
+        <h2>4. Pliki Cookies</h2>
+        <p>
+          Nasza strona może używać plików cookies w celu poprawy jakości usług i analizy ruchu na stronie.
+          Cookies to małe pliki tekstowe przechowywane na urządzeniu użytkownika. Użytkownicy mają możliwość
+          zarządzania ustawieniami cookies w swojej przeglądarce.
+        </p>
+
+        <h2>5. Udostępnianie Danych</h2>
+        <p>
+          Nie udostępniamy zebranych danych osobowych osobom trzecim. Dane te są wykorzystywane wyłącznie
+          w celach statystycznych i analitycznych.
+        </p>
+
+        <h2>6. Prawa Użytkownika</h2>
+        <p>
+          Użytkownicy naszej strony nie są zobowiązani do podawania swoich danych osobowych. Masz prawo
+          do dostępu do swoich danych i ich usunięcia w dowolnym momencie.
+        </p>
+
+        <h2>7. Kontakt</h2>
+        <p>
+          Jeśli masz pytania lub wątpliwości dotyczące naszej Polityki Prywatności, skontaktuj się z nami
+          korzystając z powyższych danych kontaktowych.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  .privacy-page {
+    padding: 8rem 1.5rem 5rem;
+    min-height: 100vh;
+  }
+
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    padding: 3rem;
+
+    @media (max-width: 768px) {
+      padding: 2rem;
+    }
+  }
+
+  h1 {
+    font-family: 'Roboto Mono', monospace;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 2rem;
+  }
+
+  h2 {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: #94a3b8;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  address {
+    font-style: normal;
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+    line-height: 2;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+
+    li {
+      color: #94a3b8;
+      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.6em;
+        width: 6px;
+        height: 6px;
+        background: var(--primary-color);
+        border-radius: 2px;
+      }
+    }
+  }
+</style>

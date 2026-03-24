@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Privacy Policy">
+  <section class="privacy-page">
+    <div class="container">
+      <div class="content-wrapper">
+        <h1>Privacy Policy</h1>
+
+        <p>
+          This Privacy Policy sets out the rules for collecting, processing, and protecting personal data collected from
+          users of the "Recode Software Przemysław Szejna" website for statistical and analytical purposes.
+        </p>
+
+        <h2>1. Data Controller</h2>
+        <p>The data controller is:</p>
+        <address>
+          Recode Software Przemysław Szejna<br />
+          94-052 Łódź, ul. Popiełuszki 11/20<br />
+          +48 732 049 610<br />
+          przemyslaw.szejna@recode-software.eu
+        </address>
+
+        <h2>2. Purposes of Data Processing</h2>
+        <p>
+          Personal data of users are collected for statistical and analytical purposes, specifically to monitor website
+          traffic, gather information about visitors, and analyze how our website is used. We use the Google Analytics
+          tool to collect this data.
+        </p>
+
+        <h2>3. Types of Data Collected</h2>
+        <p>When visiting our website, we may collect the following personal data:</p>
+        <ul>
+          <li>IP addresses</li>
+          <li>Browser type and operating system</li>
+          <li>Referral source</li>
+          <li>Pages visited within our website</li>
+          <li>Time spent on our website</li>
+        </ul>
+
+        <h2>4. Cookies</h2>
+        <p>
+          Our website may use cookies to improve the quality of our services and analyze website traffic. Cookies are
+          small text files stored on the user's device. Users have the option to manage cookie settings in their browser.
+        </p>
+
+        <h2>5. Data Sharing</h2>
+        <p>
+          We do not share collected personal data with third parties. This data is used solely for statistical and
+          analytical purposes.
+        </p>
+
+        <h2>6. User Rights</h2>
+        <p>
+          Users of our website are not required to provide their personal data. You have the right to access and delete
+          your data at any time.
+        </p>
+
+        <h2>7. Contact</h2>
+        <p>
+          If you have any questions or concerns regarding our Privacy Policy, please contact us using the contact
+          information provided above.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  .privacy-page {
+    padding: 8rem 1.5rem 5rem;
+    min-height: 100vh;
+  }
+
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    padding: 3rem;
+
+    @media (max-width: 768px) {
+      padding: 2rem;
+    }
+  }
+
+  h1 {
+    font-family: 'Roboto Mono', monospace;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 2rem;
+  }
+
+  h2 {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: #94a3b8;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  address {
+    font-style: normal;
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+    line-height: 2;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+
+    li {
+      color: #94a3b8;
+      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.6em;
+        width: 6px;
+        height: 6px;
+        background: var(--primary-color);
+        border-radius: 2px;
+      }
+    }
+  }
+</style>

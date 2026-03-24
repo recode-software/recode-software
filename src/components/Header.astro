@@ -1,0 +1,183 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getLocaleFromUrl, t } from '../i18n/translations';
+
+const locale = getLocaleFromUrl(Astro.url);
+const basePath = locale === 'en' ? '/en' : '';
+---
+
+<div class="header-wrapper">
+  <div class="container">
+    <header>
+      <div class="logo">
+        <a href={`${basePath}/`}>
+          <img src="/images/white-logo.svg" alt="Recode Software" />
+        </a>
+      </div>
+
+      <nav class="nav-main desktop-only">
+        <a class="nav-link" href={`${basePath}/`}>{t(locale, 'home')}</a>
+        <a class="nav-link" href={`${basePath}/#about-me`}>{t(locale, 'aboutMe')}</a>
+        <a class="nav-link" href={`${basePath}/projects`}>{t(locale, 'projects')}</a>
+        <a class="nav-link" href={`${basePath}/#services`}>{t(locale, 'services')}</a>
+        <a class="nav-link" href={`${basePath}/#experience`}>{t(locale, 'experience')}</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-link mobile-only" href={`${basePath}/projects`}>{t(locale, 'projects')}</a>
+        <LanguageSwitcher />
+        <a href={`${basePath}/#contact`} class="contact-btn">
+          <span>{t(locale, 'contact')}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </header>
+  </div>
+</div>
+
+<style lang="scss">
+  .header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .logo {
+    flex-shrink: 0;
+
+    a {
+      display: block;
+      line-height: 0;
+    }
+
+    img {
+      height: 44px;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .nav-main {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    position: relative;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+
+    &:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #7c3aed 100%);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+
+    svg {
+      transition: transform 0.2s;
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+
+      svg {
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  .desktop-only {
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+
+  .mobile-only {
+    display: none;
+
+    @media (max-width: 900px) {
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px) {
+    header {
+      padding: 0.75rem 1rem;
+    }
+
+    .logo img {
+      height: 36px;
+    }
+
+    .nav-actions {
+      gap: 0.5rem;
+    }
+
+    .contact-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.8125rem;
+
+      svg {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact-btn span {
+      display: none;
+    }
+
+    .contact-btn {
+      padding: 0.625rem;
+
+      svg {
+        display: block;
+      }
+    }
+  }
+</style>

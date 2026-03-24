@@ -1,0 +1,282 @@
+@use 'variables' as *;
+
+// Reset & Base
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  color: $text-primary;
+  background: $bg-dark;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+main {
+  overflow: visible;
+  position: relative;
+  z-index: 2;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// CSS Custom Properties for components
+:root {
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
+  --accent-color: #{$accent-color};
+  --font-color: #{$text-primary};
+  --bg-dark: #{$bg-dark};
+  --bg-surface: #{$bg-surface};
+  --text-secondary: #{$text-secondary};
+  --text-muted: #{$text-muted};
+  --border-color: #{$border-color};
+  --radius-lg: #{$radius-lg};
+  --radius-xl: #{$radius-xl};
+}
+
+// Typography
+.text-roboto-mono {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+}
+
+h1, h2, h3 {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  line-height: 1.2;
+  color: $text-primary;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: #5a8ff0; // Lightened primary color
+  }
+}
+
+a.white-link {
+  color: $white;
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+// Layout
+.container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  padding: $section-padding;
+}
+
+// Section titles
+.section-title {
+  font-family: 'Roboto Mono', monospace;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: $text-primary;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: $text-secondary;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+// Grid (replacement for Bulma)
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -0.75rem;
+}
+
+.column {
+  padding: 0.75rem;
+  flex: 1;
+}
+
+.is-half {
+  flex: none;
+  width: 50%;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 100%;
+  }
+}
+
+.is-one-third {
+  flex: none;
+  width: 33.333%;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 100%;
+  }
+}
+
+.is-two-thirds {
+  flex: none;
+  width: 66.666%;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 100%;
+  }
+}
+
+// Flexbox utilities
+.is-flex {
+  display: flex;
+}
+
+.is-flex-wrap-wrap {
+  flex-wrap: wrap;
+}
+
+.is-justify-content-center {
+  justify-content: center;
+}
+
+.is-justify-content-space-between {
+  justify-content: space-between;
+}
+
+.is-align-items-center {
+  align-items: center;
+}
+
+.is-flex-direction-column {
+  flex-direction: column;
+}
+
+// Visibility
+.is-hidden-mobile {
+  @media (max-width: $breakpoint-mobile) {
+    display: none !important;
+  }
+}
+
+.is-hidden-desktop {
+  @media (min-width: $breakpoint-mobile + 1) {
+    display: none !important;
+  }
+}
+
+// Spacing utilities
+@each $size in (0, 1, 2, 3, 4, 5, 6) {
+  .mt-#{$size} { margin-top: #{$size * 0.5}rem; }
+  .mb-#{$size} { margin-bottom: #{$size * 0.5}rem; }
+  .ml-#{$size} { margin-left: #{$size * 0.5}rem; }
+  .mr-#{$size} { margin-right: #{$size * 0.5}rem; }
+  .mx-#{$size} { margin-left: #{$size * 0.5}rem; margin-right: #{$size * 0.5}rem; }
+  .my-#{$size} { margin-top: #{$size * 0.5}rem; margin-bottom: #{$size * 0.5}rem; }
+  .pt-#{$size} { padding-top: #{$size * 0.5}rem; }
+  .pb-#{$size} { padding-bottom: #{$size * 0.5}rem; }
+  .pl-#{$size} { padding-left: #{$size * 0.5}rem; }
+  .pr-#{$size} { padding-right: #{$size * 0.5}rem; }
+  .px-#{$size} { padding-left: #{$size * 0.5}rem; padding-right: #{$size * 0.5}rem; }
+  .py-#{$size} { padding-top: #{$size * 0.5}rem; padding-bottom: #{$size * 0.5}rem; }
+}
+
+// Text utilities
+.has-text-centered {
+  text-align: center;
+}
+
+.has-text-white {
+  color: $white;
+}
+
+// Glass card base
+.glass-card {
+  background: $glass-bg;
+  backdrop-filter: $glass-blur;
+  border: 1px solid $glass-border;
+  border-radius: $radius-xl;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $bg-card-hover;
+    border-color: $border-hover;
+  }
+}
+
+// Components
+.shadow {
+  box-shadow: $shadow-horizontal $shadow-vertical $shadow-blur $shadow-spread $shadow-color;
+}
+
+.shadow-bottom {
+  box-shadow: 0 $shadow-vertical $shadow-blur $shadow-spread $shadow-color;
+}
+
+.shadow-glow {
+  box-shadow: $shadow-glow;
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// Selection
+::selection {
+  background: rgba($primary-color, 0.3);
+  color: $text-primary;
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+// Vue Easy Lightbox - force above all content
+.vel-modal {
+  z-index: 10000 !important;
+}

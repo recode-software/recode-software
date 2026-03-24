@@ -1,0 +1,65 @@
+---
+import { getLocaleFromUrl, t } from '../i18n/translations';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+}
+
+const locale = getLocaleFromUrl(Astro.url);
+
+const siteConfig = {
+  siteName: 'Recode Software Przemysław Szejna',
+  siteUrl: 'https://recode-software.eu',
+  defaultImage: '/images/og-image.png'
+};
+
+const {
+  title,
+  description = t(locale, 'siteDescription'),
+  image = siteConfig.defaultImage,
+  type = 'website'
+} = Astro.props;
+
+const fullTitle = title
+  ? `${title} | ${siteConfig.siteName}`
+  : siteConfig.siteName;
+
+const canonicalURL = new URL(Astro.url.pathname, siteConfig.siteUrl);
+const imageURL = new URL(image, siteConfig.siteUrl);
+
+const alternateLang = locale === 'pl' ? 'en' : 'pl';
+const alternatePath = locale === 'pl'
+  ? `/en${Astro.url.pathname}`
+  : Astro.url.pathname.replace(/^\/en/, '') || '/';
+const alternateURL = new URL(alternatePath, siteConfig.siteUrl);
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Alternate language -->
+<link rel="alternate" hreflang={locale} href={canonicalURL} />
+<link rel="alternate" hreflang={alternateLang} href={alternateURL} />
+<link rel="alternate" hreflang="x-default" href={siteConfig.siteUrl} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL.toString()} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageURL.toString()} />
+<meta property="og:site_name" content={siteConfig.siteName} />
+<meta property="og:locale" content={locale === 'pl' ? 'pl_PL' : 'en_US'} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL.toString()} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/favicon.png" />

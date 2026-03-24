@@ -1,0 +1,58 @@
+---
+import { getLocaleFromUrl } from '../i18n/translations';
+
+const locale = getLocaleFromUrl(Astro.url);
+const currentPath = Astro.url.pathname;
+
+const getAlternatePath = () => {
+  if (locale === 'pl') {
+    return `/en${currentPath}`;
+  } else {
+    return currentPath.replace(/^\/en/, '') || '/';
+  }
+};
+---
+
+<a href={getAlternatePath()} class="language-switcher" title={locale === 'pl' ? 'Switch to English' : 'Przełącz na Polski'}>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="2" y1="12" x2="22" y2="12"></line>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+  </svg>
+  <span>{locale === 'pl' ? 'EN' : 'PL'}</span>
+</a>
+
+<style lang="scss">
+  .language-switcher {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+
+    svg {
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(37, 99, 235, 0.4);
+      color: #ffffff;
+
+      svg {
+        opacity: 1;
+      }
+    }
+  }
+</style>

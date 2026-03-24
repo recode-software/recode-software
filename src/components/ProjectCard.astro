@@ -1,0 +1,232 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import { getLocaleFromUrl } from '../i18n/translations';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  featured?: boolean;
+}
+
+const { project, featured = false } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const basePath = locale === 'en' ? '/en' : '';
+
+const { slug, date, title, titlePl, url, technologies, descriptionPl } = project.data;
+const { Content } = await render(project);
+
+const displayTitle = locale === 'pl' && titlePl ? titlePl : title;
+const year = new Date(date).getFullYear();
+
+const seeMoreText = locale === 'pl' ? 'Zobacz projekt' : 'View project';
+---
+
+<article class:list={['project-card', { featured }]}>
+  <a href={`${basePath}/projects/${slug}`} class="card-link">
+    <div class="card-image">
+      <img src={`/images/projects/${slug}-mockup.webp`} alt={displayTitle} loading="lazy" />
+      <div class="card-overlay">
+        <span class="view-project">{seeMoreText} &rarr;</span>
+      </div>
+    </div>
+
+    <div class="card-content">
+      <div class="card-meta">
+        <span class="year">{year}</span>
+        <a href={`https://${url}`} target="_blank" rel="noopener noreferrer" class="url" onclick="event.stopPropagation()">
+          {url}
+        </a>
+      </div>
+
+      <h3 class="card-title">{displayTitle}</h3>
+
+      <div class="card-description">
+        {locale === 'pl' && descriptionPl ? (
+          <p>{descriptionPl}</p>
+        ) : (
+          <Content />
+        )}
+      </div>
+
+      {technologies && technologies.length > 0 && (
+        <div class="tech-stack">
+          {technologies.slice(0, 4).map(tech => (
+            <span class="tech-badge">{tech}</span>
+          ))}
+          {technologies.length > 4 && (
+            <span class="tech-badge more">+{technologies.length - 4}</span>
+          )}
+        </div>
+      )}
+    </div>
+  </a>
+</article>
+
+<style lang="scss">
+  .project-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(37, 99, 235, 0.3);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+
+      .card-overlay {
+        opacity: 1;
+      }
+
+      .card-image img {
+        transform: scale(1.05);
+      }
+    }
+
+    &.featured {
+      grid-column: span 2;
+
+      @media (max-width: 768px) {
+        grid-column: span 1;
+      }
+    }
+  }
+
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .card-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(124, 58, 237, 0.9) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .view-project {
+    color: white;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: white;
+      color: var(--primary-color);
+    }
+  }
+
+  .card-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 0.8rem;
+
+    .year {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 700;
+      color: var(--primary-color);
+      background: rgba(37, 99, 235, 0.15);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .url {
+      color: #64748b;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  .card-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+    color: #ffffff;
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+
+    :global(p) {
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  .tech-badge {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.35rem 0.65rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(37, 99, 235, 0.2);
+      border-color: rgba(37, 99, 235, 0.4);
+      color: #ffffff;
+    }
+
+    &.more {
+      background: linear-gradient(135deg, var(--primary-color), #7c3aed);
+      border: none;
+      color: white;
+    }
+  }
+</style>

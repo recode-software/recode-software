@@ -1,0 +1,352 @@
+---
+import { getCollection } from 'astro:content';
+import { getLocaleFromUrl, t } from '../i18n/translations';
+
+const locale = getLocaleFromUrl(Astro.url);
+const basePath = locale === 'en' ? '/en' : '';
+
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const featuredProject = sortedProjects[0];
+const otherProjects = sortedProjects.slice(1, 4);
+
+const sectionTitle = locale === 'pl' ? 'Wybrane projekty' : 'Featured Work';
+const sectionSubtitle = locale === 'pl'
+  ? 'Kilka projektów, nad którymi ostatnio pracowałem'
+  : 'Some of the projects I\'ve worked on recently';
+---
+
+<section id="projects" class="projects-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{sectionTitle}</h2>
+      <p class="section-subtitle">{sectionSubtitle}</p>
+    </div>
+
+    <!-- Featured Project -->
+    <a href={`${basePath}/projects/${featuredProject.data.slug}`} class="featured-project">
+      <div class="featured-image">
+        <img src={`/images/projects/${featuredProject.data.slug}-mockup.webp`} alt={featuredProject.data.title} />
+        <div class="image-overlay"></div>
+      </div>
+      <div class="featured-content">
+        <span class="featured-label">{locale === 'pl' ? 'Najnowszy projekt' : 'Latest project'}</span>
+        <h3>{locale === 'pl' && featuredProject.data.titlePl ? featuredProject.data.titlePl : featuredProject.data.title}</h3>
+        <p>{locale === 'pl' && featuredProject.data.descriptionPl ? featuredProject.data.descriptionPl : ''}</p>
+        <div class="featured-tech">
+          {featuredProject.data.technologies?.slice(0, 4).map(tech => (
+            <span class="tech-tag">{tech}</span>
+          ))}
+        </div>
+        <span class="view-link">
+          {locale === 'pl' ? 'Zobacz projekt' : 'View project'}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- Other Projects -->
+    <div class="other-projects">
+      {otherProjects.map((project, index) => (
+        <a href={`${basePath}/projects/${project.data.slug}`} class="project-card" style={`--delay: ${index * 0.1}s`}>
+          <div class="card-image">
+            <img src={`/images/projects/${project.data.slug}-mockup.webp`} alt={project.data.title} />
+            <div class="card-overlay"></div>
+          </div>
+          <div class="card-content">
+            <h4>{locale === 'pl' && project.data.titlePl ? project.data.titlePl : project.data.title}</h4>
+            <div class="card-tech">
+              {project.data.technologies?.slice(0, 3).map(tech => (
+                <span>{tech}</span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="view-all">
+      <a href={`${basePath}/projects`} class="view-all-btn">
+        {t(locale, 'viewAllProjects')}
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .projects-section {
+    position: relative;
+    z-index: 2;
+    padding: 6rem 1.5rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .featured-project {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(37, 99, 235, 0.2);
+
+      .featured-image img {
+        transform: scale(1.03);
+      }
+
+      .view-link {
+        color: var(--primary-color);
+
+        svg {
+          transform: translateX(4px);
+        }
+      }
+    }
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .featured-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+
+    img {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+      transition: transform 0.5s ease;
+    }
+
+    .image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 70%, rgba(10, 10, 15, 0.5) 100%);
+      pointer-events: none;
+    }
+  }
+
+  .featured-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+
+  .featured-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    background: rgba(37, 99, 235, 0.1);
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    width: fit-content;
+  }
+
+  .featured-content h3 {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+    color: #ffffff;
+  }
+
+  .featured-content p {
+    color: #94a3b8;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+  }
+
+  .featured-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-tag {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: #cbd5e1;
+  }
+
+  .view-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #94a3b8;
+    transition: color 0.2s ease;
+
+    svg {
+      transition: transform 0.2s ease;
+    }
+  }
+
+  .other-projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .project-card {
+    text-decoration: none;
+    color: inherit;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: var(--delay);
+    opacity: 0;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(37, 99, 235, 0.3);
+      transform: translateY(-4px);
+
+      .card-image img {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(10, 10, 15, 0.6) 100%);
+    }
+  }
+
+  .card-content {
+    padding: 1.25rem;
+
+    h4 {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem;
+      color: #ffffff;
+    }
+  }
+
+  .card-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    span {
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+  }
+
+  .view-all {
+    text-align: center;
+  }
+
+  .view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    svg {
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--primary-color);
+
+      svg {
+        transform: translateX(4px);
+      }
+    }
+  }
+</style>
