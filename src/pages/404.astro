@@ -21,6 +21,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style lang="scss">
   .error-page {
+    position: relative;
+    z-index: 2;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -30,6 +32,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .error-content {
     text-align: center;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .error-code {
