@@ -50,11 +50,11 @@ const seeMoreText = locale === 'pl' ? 'Zobacz projekt' : 'View project';
 
       {technologies && technologies.length > 0 && (
         <div class="tech-stack">
-          {technologies.slice(0, 4).map(tech => (
+          {technologies.slice(0, 3).map((tech: string) => (
             <span class="tech-badge">{tech}</span>
           ))}
-          {technologies.length > 4 && (
-            <span class="tech-badge more">+{technologies.length - 4}</span>
+          {technologies.length > 3 && (
+            <span class="tech-badge more">+{technologies.length - 3}</span>
           )}
         </div>
       )}
@@ -201,9 +201,10 @@ const seeMoreText = locale === 'pl' ? 'Zobacz projekt' : 'View project';
 
   .tech-stack {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 0.5rem;
     margin-top: auto;
+    overflow: hidden;
   }
 
   .tech-badge {
