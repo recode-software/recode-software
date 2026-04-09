@@ -1,61 +1,101 @@
 export const services = {
   pl: [
     {
-      name: 'Aplikacje webowe',
-      shortDesc: 'Full-stack development',
-      description: 'Tworzę kompletne aplikacje webowe od backendu po frontend. SPA, SSR, API - wszystko co potrzebne.',
-      features: ['REST & GraphQL API', 'Vue / React / Astro', 'Node.js / Nest.js'],
+      name: 'Aplikacje Full-Stack',
+      shortDesc: 'Vue/Nuxt + NestJS / Laravel',
+      description: 'Kompletne aplikacje webowe od backendu po frontend. SPA, SSR, real-time z WebSocket/SSE. CQRS, Event-Driven, wielojezycznosc.',
+      features: ['Vue / Nuxt / React', 'NestJS / Laravel / Symfony', 'PostgreSQL / Redis', 'WebSocket / SSE'],
+      highlights: ['12+ projektów Vue.js', 'Nuxt 2/3/4 + Next.js'],
       icon: 'web'
     },
     {
-      name: 'Systemy biznesowe',
-      shortDesc: 'Dedykowane rozwiązania',
-      description: 'Projektuję i wdrażam systemy dopasowane do procesów Twojej firmy. CRM, ERP, panele administracyjne.',
-      features: ['Automatyzacja procesów', 'Integracje z API', 'Raporty i analityka'],
+      name: 'Systemy CRM & Biznesowe',
+      shortDesc: 'CRM, ERP, panele admin',
+      description: 'Dedykowane systemy CRM, panele administracyjne i aplikacje biznesowe dopasowane do procesow Twojej firmy. Integracje ksiegowe, bramki platnosci, raporty.',
+      features: ['Systemy CRM / ERP', 'Panele administracyjne', 'Integracje z API', 'Raporty i analityka'],
+      highlights: ['43 pakiety DDD', '105+ modułów backend'],
       icon: 'business'
     },
     {
-      name: 'AI & Automatyzacja',
-      shortDesc: 'Chatboty, skrypty, boty',
-      description: 'Integruję AI w aplikacjach i automatyzuję powtarzalne zadania. Chatboty, scrapery, integracje.',
-      features: ['OpenAI / Claude API', 'Web scraping', 'Boty & skrypty'],
+      name: 'AI & Przetwarzanie dokumentow',
+      shortDesc: 'LLM, OCR, RAG',
+      description: 'Integracja dostawcow LLM (OpenAI, Claude, Azure, Mistral). RAG z pgvector. OCR multi-provider. Structured outputs z Zod.',
+      features: ['OpenAI / Claude / Mistral', 'RAG z pgvector', 'OCR (Textract, Form Recognizer)', 'AI SDK & LangChain'],
+      highlights: ['130+ queue handlers AI', 'Multi-provider LLM'],
       icon: 'ai'
     },
     {
-      name: 'WordPress & E-commerce',
-      shortDesc: 'Strony i sklepy',
-      description: 'Tworzę strony firmowe i sklepy internetowe na WordPress i WooCommerce. Szybko, profesjonalnie, z SEO.',
-      features: ['WordPress', 'WooCommerce', 'Wtyczki custom', 'Optymalizacja'],
+      name: 'Vue.js, React & Next.js',
+      shortDesc: 'Nowoczesny frontend',
+      description: 'Aplikacje w Vue.js 2/3, Nuxt 2/3/4, React 18/19, Next.js 13-15. TailwindCSS, shadcn/ui, MUI, Zustand, Pinia, Sentry.',
+      features: ['Vue.js / Nuxt', 'React / Next.js', 'TailwindCSS / shadcn/ui', 'MUI / Zustand / Pinia'],
+      highlights: ['12+ projektów Vue.js', 'Sentry + GA + Hotjar'],
+      icon: 'react'
+    },
+    {
+      name: 'DevOps & Cloud',
+      shortDesc: 'Docker, Kubernetes, CI/CD',
+      description: 'Konteneryzacja, orkiestracja i automatyzacja wdrozen. Kubernetes, Helm, ArgoCD, Ansible, AWS, Serverless.',
+      features: ['Docker / Kubernetes (K3s)', 'Helm Charts / ArgoCD', 'Ansible / CI/CD', 'AWS / Azure / Serverless'],
+      highlights: ['6 Helm charts (Voyeta)', 'GitOps workflow'],
+      icon: 'devops'
+    },
+    {
+      name: 'CMS, Automatyzacja & IoT',
+      shortDesc: 'WordPress, CLI, urzadzenia',
+      description: 'Strony WordPress, narzedzia CLI, web scraping, integracje z urzadzeniami fizycznymi (czytniki kart, tokenizacja).',
+      features: ['WordPress / WooCommerce', 'Narzedzia CLI (npm)', 'Web scraping', 'Integracje IoT'],
+      highlights: ['Czytniki kart Centreo', 'Publishable npm packages'],
       icon: 'wordpress'
     }
   ],
   en: [
     {
-      name: 'Web Applications',
-      shortDesc: 'Full-stack development',
-      description: 'I build complete web applications from backend to frontend. SPA, SSR, API - everything you need.',
-      features: ['REST & GraphQL API', 'Vue / React / Astro', 'Node.js / Nest.js'],
+      name: 'Full-Stack Applications',
+      shortDesc: 'Vue/Nuxt + NestJS / Laravel',
+      description: 'Complete web applications from backend to frontend. SPA, SSR, real-time with WebSocket/SSE. CQRS, Event-Driven, i18n.',
+      features: ['Vue / Nuxt / React', 'NestJS / Laravel / Symfony', 'PostgreSQL / Redis', 'WebSocket / SSE'],
+      highlights: ['12+ Vue.js projects', 'Nuxt 2/3/4 + Next.js'],
       icon: 'web'
     },
     {
-      name: 'Business Systems',
-      shortDesc: 'Custom solutions',
-      description: 'I design and implement systems tailored to your business processes. CRM, ERP, admin panels.',
-      features: ['Process automation', 'API integrations', 'Reports & analytics'],
+      name: 'CRM & Business Systems',
+      shortDesc: 'CRM, ERP, admin panels',
+      description: 'Custom CRM systems, admin panels and business applications tailored to your company processes. Accounting integrations, payment gateways, reports.',
+      features: ['CRM / ERP Systems', 'Admin panels', 'API integrations', 'Reports & analytics'],
+      highlights: ['43 DDD packages', '105+ backend modules'],
       icon: 'business'
     },
     {
-      name: 'AI & Automation',
-      shortDesc: 'Chatbots, scripts, bots',
-      description: 'I integrate AI into applications and automate repetitive tasks. Chatbots, scrapers, integrations.',
-      features: ['OpenAI / Claude API', 'Web scraping', 'Bots & scripts', 'Webhooks'],
+      name: 'AI & Document Processing',
+      shortDesc: 'LLM, OCR, RAG',
+      description: 'Multi-provider LLM integration (OpenAI, Claude, Azure, Mistral). RAG with pgvector. Multi-provider OCR. Structured outputs with Zod.',
+      features: ['OpenAI / Claude / Mistral', 'RAG with pgvector', 'OCR (Textract, Form Recognizer)', 'AI SDK & LangChain'],
+      highlights: ['130+ AI queue handlers', 'Multi-provider LLM'],
       icon: 'ai'
     },
     {
-      name: 'WordPress & E-commerce',
-      shortDesc: 'Websites & stores',
-      description: 'I build business websites and online stores on WordPress and WooCommerce. Fast, professional, SEO-ready.',
-      features: ['WordPress', 'WooCommerce', 'Custom plugins', 'Optimization'],
+      name: 'Vue.js, React & Next.js',
+      shortDesc: 'Modern frontend',
+      description: 'Applications in Vue.js 2/3, Nuxt 2/3/4, React 18/19, Next.js 13-15. TailwindCSS, shadcn/ui, MUI, Zustand, Pinia, Sentry.',
+      features: ['Vue.js / Nuxt', 'React / Next.js', 'TailwindCSS / shadcn/ui', 'MUI / Zustand / Pinia'],
+      highlights: ['12+ Vue.js projects', 'Sentry + GA + Hotjar'],
+      icon: 'react'
+    },
+    {
+      name: 'DevOps & Cloud',
+      shortDesc: 'Docker, Kubernetes, CI/CD',
+      description: 'Containerization, orchestration and deployment automation. Kubernetes, Helm, ArgoCD, Ansible, AWS, Serverless.',
+      features: ['Docker / Kubernetes (K3s)', 'Helm Charts / ArgoCD', 'Ansible / CI/CD', 'AWS / Azure / Serverless'],
+      highlights: ['6 Helm charts (Voyeta)', 'GitOps workflow'],
+      icon: 'devops'
+    },
+    {
+      name: 'CMS, Automation & IoT',
+      shortDesc: 'WordPress, CLI, devices',
+      description: 'WordPress sites, CLI tools, web scraping, physical device integrations (card readers, tokenization).',
+      features: ['WordPress / WooCommerce', 'CLI tools (npm)', 'Web scraping', 'IoT integrations'],
+      highlights: ['Centreo card readers', 'Publishable npm packages'],
       icon: 'wordpress'
     }
   ]
