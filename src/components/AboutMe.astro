@@ -99,7 +99,7 @@ const c = content[locale];
       <div class="bento-card card-stack">
         <div class="stack-header">Tech Stack</div>
         <div class="stack-tags">
-          {c.stack.map(tech => (
+          {c.stack.map((tech: string) => (
             <span class="stack-tag">{tech}</span>
           ))}
         </div>
@@ -126,7 +126,6 @@ const c = content[locale];
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto auto auto auto;
     gap: 1rem;
-    max-width: 1100px;
     margin: 0 auto;
 
     @media (max-width: 900px) {

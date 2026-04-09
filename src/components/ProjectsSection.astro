@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { getLocaleFromUrl, t } from '../i18n/translations';
+import CompanyStrip from './CompanyStrip.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const basePath = locale === 'en' ? '/en' : '';
@@ -24,6 +25,9 @@ const sectionSubtitle = locale === 'pl'
       <h2 class="section-title">{sectionTitle}</h2>
       <p class="section-subtitle">{sectionSubtitle}</p>
     </div>
+
+    <!-- Company Experience Strip -->
+    <CompanyStrip />
 
     <!-- Featured Project -->
     <a href={`${basePath}/projects/${featuredProject.data.slug}`} class="featured-project">
