@@ -1,0 +1,193 @@
+---
+import { architecturePatterns } from '../data/architecture';
+import { getLocaleFromUrl, t } from '../i18n/translations';
+
+const locale = getLocaleFromUrl(Astro.url);
+const patterns = architecturePatterns[locale];
+---
+
+<section id="architecture" class="architecture-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{t(locale, 'architectureTitle')}</h2>
+      <p class="section-subtitle">{t(locale, 'architectureSubtitle')}</p>
+    </div>
+
+    <div class="patterns-grid">
+      {patterns.map((pattern, index) => (
+        <div class="pattern-card" style={`--delay: ${index * 0.1}s`}>
+          <div class="pattern-name">{pattern.name}</div>
+          <div class="pattern-metric">
+            <span class="metric-value">{pattern.metric}</span>
+            <span class="metric-label">{pattern.metricLabel}</span>
+          </div>
+          <p class="pattern-desc">{pattern.description}</p>
+          {pattern.subPatterns && (
+            <div class="sub-patterns">
+              {pattern.subPatterns.map(sub => (
+                <div class="sub-pattern">
+                  <span class="sub-name">{sub.name}</span>
+                  <span class="sub-metric">{sub.metric}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .architecture-section {
+    position: relative;
+    z-index: 2;
+    padding: 6rem 1.5rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .patterns-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin: 0 auto;
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pattern-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: var(--delay);
+    opacity: 0;
+
+    &:hover {
+      background: rgba(34, 197, 94, 0.03);
+      border-color: rgba(34, 197, 94, 0.2);
+      transform: translateY(-2px);
+
+      .metric-value {
+        text-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+      }
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .pattern-name {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #22c55e;
+    margin-bottom: 0.75rem;
+  }
+
+  .pattern-metric {
+    margin-bottom: 0.75rem;
+  }
+
+  .metric-value {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    display: block;
+    transition: text-shadow 0.3s ease;
+  }
+
+  .metric-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: lowercase;
+  }
+
+  .pattern-desc {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin: 0 0 0.75rem;
+  }
+
+  .pattern-projects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-tag {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    padding: 0.2rem 0.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    color: #94a3b8;
+  }
+
+  .sub-patterns {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .sub-pattern {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sub-name {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    color: #64748b;
+  }
+
+  .sub-metric {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #22c55e;
+  }
+</style>
