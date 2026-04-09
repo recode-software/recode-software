@@ -1,0 +1,115 @@
+---
+import { getLocaleFromUrl, t } from '../i18n/translations';
+
+const locale = getLocaleFromUrl(Astro.url);
+
+const stats = locale === 'pl' ? [
+  { value: '10+', label: 'lat' },
+  { value: '40+', label: 'projektów' },
+  { value: '4', label: 'języki' },
+  { value: '19+', label: 'mikroserwisów' },
+  { value: '105+', label: 'modułów' },
+  { value: '43', label: 'pakiety DDD' },
+] : [
+  { value: '10+', label: 'years' },
+  { value: '40+', label: 'projects' },
+  { value: '4', label: 'languages' },
+  { value: '19+', label: 'microservices' },
+  { value: '105+', label: 'modules' },
+  { value: '43', label: 'DDD packages' },
+];
+---
+
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-row">
+      {stats.map((stat, index) => (
+        <div class="stat-item" style={`--delay: ${index * 0.08}s`}>
+          <span class="stat-value">{stat.value}</span>
+          <span class="stat-label">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .stats-strip {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    margin: 0 auto;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      gap: 2rem;
+    }
+
+    @media (max-width: 480px) {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: var(--delay);
+    opacity: 0;
+
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.08);
+
+      @media (max-width: 480px) {
+        display: none;
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .stat-value {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .stat-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>
