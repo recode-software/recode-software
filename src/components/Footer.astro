@@ -38,6 +38,7 @@ const currentYear = new Date().getFullYear();
       <div class="footer-col brand">
         <img src="/images/white-logo.svg" alt="Recode Software" class="footer-logo" />
         <p class="brand-desc">{locale === 'pl' ? 'Tworzę nowoczesne aplikacje webowe i rozwiązania AI dla firm.' : 'Building modern web applications and AI solutions for businesses.'}</p>
+        <a href="mailto:przemyslaw.szejna@recode-software.eu" class="brand-email">przemyslaw.szejna@recode-software.eu</a>
       </div>
 
       <div class="footer-col">
@@ -45,18 +46,10 @@ const currentYear = new Date().getFullYear();
         <nav class="footer-nav">
           <a href={`${basePath}/`}>{t(locale, 'home')}</a>
           <a href={`${basePath}/#about-me`}>{t(locale, 'aboutMe')}</a>
-          <a href={`${basePath}/projects`}>{t(locale, 'projects')}</a>
+          <a href={`${basePath}/#competencies`}>{t(locale, 'experience')}</a>
           <a href={`${basePath}/#services`}>{t(locale, 'services')}</a>
-          <a href={`${basePath}/#experience`}>{t(locale, 'experience')}</a>
+          <a href={`${basePath}/projects`}>{t(locale, 'projects')}</a>
         </nav>
-      </div>
-
-      <div class="footer-col">
-        <h4 class="col-title">{t(locale, 'contact')}</h4>
-        <div class="contact-info">
-          <a href="mailto:przemyslaw.szejna@recode-software.eu">przemyslaw.szejna@recode-software.eu</a>
-          <span class="location">{locale === 'pl' ? 'Polska' : 'Poland'}</span>
-        </div>
       </div>
     </div>
 
@@ -176,7 +169,7 @@ const currentYear = new Date().getFullYear();
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 3rem;
     margin-bottom: 3rem;
 
@@ -205,11 +198,24 @@ const currentYear = new Date().getFullYear();
     color: rgba(255, 255, 255, 0.5);
     font-size: 0.9rem;
     line-height: 1.7;
-    margin: 0;
+    margin: 0 0 1.25rem;
     max-width: 280px;
 
     @media (max-width: 768px) {
       max-width: none;
+    }
+  }
+
+  .brand-email {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.2s;
+    word-break: break-word;
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 
@@ -240,28 +246,6 @@ const currentYear = new Date().getFullYear();
     }
   }
 
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    a {
-      color: rgba(255, 255, 255, 0.7);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-      word-break: break-word;
-
-      &:hover {
-        color: var(--primary-color);
-      }
-    }
-
-    .location {
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 0.875rem;
-    }
-  }
 
   // Bottom Bar
   .bottom-bar {
