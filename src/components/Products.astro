@@ -1,0 +1,236 @@
+---
+import { products } from '../data/products';
+import { getLocaleFromUrl, t } from '../i18n/translations';
+
+const locale = getLocaleFromUrl(Astro.url);
+const localizedProducts = products[locale];
+---
+
+<section id="products" class="products-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{t(locale, 'productsTitle')}</h2>
+      <p class="section-subtitle">{t(locale, 'productsSubtitle')}</p>
+    </div>
+
+    <div class="products-grid">
+      {localizedProducts.map((product, index) => (
+        <a
+          href={`https://${product.url}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="product-card"
+          style={`--accent: ${product.accent}; --delay: ${index * 0.1}s`}
+        >
+          <div class="card-image">
+            <img
+              src={`/images/products/${product.slug}.webp`}
+              alt={product.name}
+              loading="lazy"
+              width="800"
+              height="500"
+            />
+            <div class="card-overlay"></div>
+          </div>
+
+          <div class="card-content">
+            <div class="card-meta">
+              <h3 class="card-title">{product.name}</h3>
+              <span class="card-url">
+                {product.url}
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </span>
+            </div>
+
+            <p class="card-description">{product.description}</p>
+
+            <div class="card-tech">
+              {product.technologies.map(tech => (
+                <span class="tech-badge">{tech}</span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .products-section {
+    position: relative;
+    z-index: 2;
+    padding: 0 1.5rem 6rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: var(--delay);
+    opacity: 0;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+      transform: translateY(-4px);
+
+      .card-image img {
+        transform: scale(1.03);
+      }
+
+      .card-url {
+        color: var(--accent);
+      }
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 70%, rgba(10, 10, 15, 0.45) 100%);
+      pointer-events: none;
+    }
+  }
+
+  .card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+
+    // Long product names wrap on narrow screens and crowd the URL beside them.
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+  }
+
+  .card-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    &::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+  }
+
+  .card-url {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: #64748b;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.65;
+    margin: 0 0 1.25rem;
+    flex: 1;
+  }
+
+  .card-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  .tech-badge {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.35rem 0.65rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    border-radius: 6px;
+  }
+</style>

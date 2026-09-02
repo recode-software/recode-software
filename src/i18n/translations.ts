@@ -51,6 +51,10 @@ export const translations = {
     screenshots: 'Zrzuty ekranu',
     companiesTitle: 'Doświadczenie w firmach',
 
+    // Products
+    productsTitle: 'Moje produkty',
+    productsSubtitle: 'Autorskie produkty, które zbudowałem i wypuściłem na rynek',
+
     // Footer
     footerCta: 'Stwórzmy razem coś niesamowitego',
     footerHi: 'Zacznij od przywitania się',
@@ -112,6 +116,10 @@ export const translations = {
     technologies: 'Technologies',
     screenshots: 'Screenshots',
     companiesTitle: 'Company experience',
+
+    // Products
+    productsTitle: 'My Products',
+    productsSubtitle: 'Products of my own that I built and shipped to market',
 
     // Footer
     footerCta: "Let's make something amazing together",
