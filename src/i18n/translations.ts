@@ -53,7 +53,8 @@ export const translations = {
 
     // Products
     productsTitle: 'Moje produkty',
-    productsSubtitle: 'Autorskie produkty, które zbudowałem i wypuściłem na rynek',
+    productsSubtitle: 'Autorskie produkty, które zbudowałem od zera',
+    productSoon: 'Wkrótce',
 
     // Footer
     footerCta: 'Stwórzmy razem coś niesamowitego',
@@ -119,7 +120,8 @@ export const translations = {
 
     // Products
     productsTitle: 'My Products',
-    productsSubtitle: 'Products of my own that I built and shipped to market',
+    productsSubtitle: 'Products of my own, built from the ground up',
+    productSoon: 'Coming soon',
 
     // Footer
     footerCta: "Let's make something amazing together",

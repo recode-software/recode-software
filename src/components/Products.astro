@@ -35,7 +35,12 @@ const localizedProducts = products[locale];
 
           <div class="card-content">
             <div class="card-meta">
-              <h3 class="card-title">{product.name}</h3>
+              <h3 class="card-title">
+                {product.name}
+                {product.status === 'soon' && (
+                  <span class="card-badge">{t(locale, 'productSoon')}</span>
+                )}
+              </h3>
               <span class="card-url">
                 {product.url}
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -90,6 +95,29 @@ const localizedProducts = products[locale];
 
     @media (max-width: 900px) {
       grid-template-columns: 1fr;
+    }
+  }
+
+  // With an odd number of products the last card would sit alone in the left
+  // column. Let it span the row instead and lay it out side by side.
+  .product-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+
+    @media (min-width: 901px) {
+      flex-direction: row;
+
+      .card-image {
+        width: 52%;
+        flex-shrink: 0;
+        aspect-ratio: auto;
+        border-bottom: none;
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .card-content {
+        justify-content: center;
+        padding: 2rem;
+      }
     }
   }
 
@@ -196,6 +224,20 @@ const localizedProducts = products[locale];
       background: var(--accent);
       flex-shrink: 0;
     }
+  }
+
+  .card-badge {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.45rem;
+    border-radius: 5px;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    white-space: nowrap;
   }
 
   .card-url {
