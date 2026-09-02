@@ -1,0 +1,20 @@
+# Normalize all text files to LF in the repository and in the working tree.
+* text=auto eol=lf
+
+# Explicit for the file types this project actually contains,
+# so editors that default to CRLF cannot reintroduce noise diffs.
+*.astro   text eol=lf
+*.ts      text eol=lf
+*.mjs     text eol=lf
+*.json    text eol=lf
+*.scss    text eol=lf
+*.vue     text eol=lf
+*.svg     text eol=lf
+*.md      text eol=lf
+*.txt     text eol=lf
+
+# Binary assets must never be touched by EOL conversion.
+*.webp    binary
+*.png     binary
+*.jpg     binary
+*.ico     binary
